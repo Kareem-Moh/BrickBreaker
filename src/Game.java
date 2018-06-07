@@ -9,6 +9,7 @@ public class Game extends Applet implements Runnable, KeyListener{
 	Platform p;
 	Ball b;
 	AimBot a;
+	Brick br;
 	public void init() {
 		
 		this.resize(Resources.GAME_WIDTH, Resources.GAME_HEIGHT);
@@ -16,6 +17,7 @@ public class Game extends Applet implements Runnable, KeyListener{
 		p = new Platform();
 		b = new Ball(p);
 		a = new AimBot(b);
+		br = new Brick(50, 50, 1);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -25,6 +27,7 @@ public class Game extends Applet implements Runnable, KeyListener{
 		p.draw(g);
 		if (b.start) {a.draw(g, b);}
 		b.draw(g);
+		br.draw(g, Color.BLUE);
 	}
 	public void update(Graphics g) {
 		paint(g);
@@ -38,7 +41,6 @@ public class Game extends Applet implements Runnable, KeyListener{
 			b.move(p);
 			if (b.start) {a.move(b);}
 			repaint();
-			//System.out.println(p.movingLeft + " " + p.movingRight);
 			try {
 				Thread.sleep(25);
 			} catch (InterruptedException e) {
@@ -58,7 +60,6 @@ public class Game extends Applet implements Runnable, KeyListener{
 		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { 
 			p.setMovingRight(true);
 		}
-		System.out.println(e.getKeyCode());
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
