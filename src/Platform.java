@@ -27,7 +27,18 @@ public class Platform {
 		if (movingLeft == true) {velocity -= 1;}
 		else if (movingRight == true) {velocity += 1;}
 		else if (!movingLeft && !movingRight) {velocity *= Resources.FRICTION;}
-		x += velocity;
+		//Handle paddle moving too fast
+		if (velocity >= 5) {velocity = 5;}
+		else if (velocity <= -5) {velocity = -5;}
+		//Handle wall collision
+		if (x >= Resources.GAME_WIDTH - width) {
+			if (movingLeft) {x += velocity;}
+		} else if (x <= 0) {
+			if (movingRight) {x += velocity;}
+		} else {
+			x += velocity;
+		}
+		
 	}
 	
 	public int getX() {
