@@ -25,10 +25,12 @@ public class Game extends Applet implements Runnable, KeyListener{
 	}
 	@Override
 	public void run() {
-		p.move();
-		repaint();
 		
 		while(true) {
+
+			p.move();
+			repaint();
+			//System.out.println(p.movingLeft + " " + p.movingRight);
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

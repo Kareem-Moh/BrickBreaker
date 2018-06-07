@@ -4,9 +4,9 @@ import java.awt.Graphics;
 public class Platform {
 	
 	boolean movingRight, movingLeft;
-	int x, y;
+	int x, y, velocity;
 	int width, height;
-	
+
 	public Platform() {
 		movingRight  = false;
 		movingLeft = false;
@@ -14,7 +14,8 @@ public class Platform {
 		height = Resources.PLATFORM_HEIGHT;
 		//Ensure paddle starts at the center
 		x = Resources.GAME_WIDTH/2 - width/2;
-		y = Resources.GAME_HEIGHT - 40; 
+		y = Resources.GAME_HEIGHT - 40;
+		velocity = 0;
 	}
 	
 	public void draw(Graphics g) {
@@ -23,7 +24,10 @@ public class Platform {
 	}
 	
 	public void move() {
-		
+		if (movingLeft == true) {velocity -= 1;}
+		else if (movingRight == true) {velocity += 1;}
+		else if (!movingLeft && !movingRight) {velocity *= Resources.FRICTION;}
+		x += velocity;
 	}
 	
 	public int getX() {
