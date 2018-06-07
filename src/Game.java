@@ -7,11 +7,15 @@ import java.awt.event.KeyListener;
 public class Game extends Applet implements Runnable, KeyListener{
 	Thread thread;
 	Platform p;
+	Ball b;
+	AimBot a;
 	public void init() {
 		
 		this.resize(Resources.GAME_WIDTH, Resources.GAME_HEIGHT);
 		this.addKeyListener(this);
 		p = new Platform();
+		b = new Ball(p);
+		a = new AimBot(b);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -19,6 +23,8 @@ public class Game extends Applet implements Runnable, KeyListener{
 		g.setColor(Color.darkGray);
 		g.fillRect(0, 0, Resources.GAME_WIDTH, Resources.GAME_HEIGHT);
 		p.draw(g);
+		if (b.start) {a.draw(g, b);}
+		b.draw(g);
 	}
 	public void update(Graphics g) {
 		paint(g);
@@ -29,10 +35,12 @@ public class Game extends Applet implements Runnable, KeyListener{
 		while(true) {
 
 			p.move();
+			b.move(p);
+			if (b.start) {a.move(b);}
 			repaint();
 			//System.out.println(p.movingLeft + " " + p.movingRight);
 			try {
-				Thread.sleep(10);
+				Thread.sleep(25);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -44,12 +52,21 @@ public class Game extends Applet implements Runnable, KeyListener{
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_LEFT) { p.setMovingLeft(true);} 
-		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { p.setMovingRight(true); }		
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) { 
+			p.setMovingLeft(true);
+		} 
+		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { 
+			p.setMovingRight(true);
+		}
+		System.out.println(e.getKeyCode());
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_LEFT) { p.setMovingLeft(false);} 
-		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { p.setMovingRight(false); }		
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) { 
+			p.setMovingLeft(false);
+		} 
+		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { 
+			p.setMovingRight(false); 
+		}
 	}
 }
