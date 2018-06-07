@@ -31,14 +31,14 @@ public class AimBot {
 		y1 = b.y;
 		if (direction == 'R') {
 			if(x2 >= Resources.GAME_WIDTH) { 
-				x2 -= 4;
+				x2 -= 12;
 				direction = 'L';
-			} else { x2 += 4;}
+			} else { x2 += 12;}
 		} else if (direction == 'L') {
 			if (x2 <= 0) {
-				x2 += 4;
+				x2 += 12;
 				direction = 'R';
-			} else { x2 -= 4;}
+			} else { x2 -= 12;}
 		}
 	}
 }
