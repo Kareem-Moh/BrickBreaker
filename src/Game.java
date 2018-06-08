@@ -13,8 +13,8 @@ public class Game extends Applet implements Runnable, KeyListener{
 	AimBot a;
 	ArrayList<Brick> bricks;
 	int currX, currY;
-	Random rand = new Random();
-	Color randomColor = new Color(rand.nextFloat(),rand.nextFloat(),rand.nextFloat());
+	Grid gr;
+	
 	public void init() {
 		
 		this.resize(Resources.GAME_WIDTH, Resources.GAME_HEIGHT);
@@ -24,15 +24,7 @@ public class Game extends Applet implements Runnable, KeyListener{
 		a = new AimBot(b);
 		bricks = new ArrayList<Brick>();
 		currX = 0; currY = 15;
-		for (int i = 0; i < 30 ; i++){
-			bricks.add(new Brick(currX, currY, 1));
-			if(currX + Resources.BRICK1_WIDTH > Resources.GAME_WIDTH){
-				currX = 0;
-				currY += 15 + 1;
-			} else {
-				currX += Resources.BRICK1_WIDTH + 1;
-			}
-		}
+		gr = new Grid(50, 3);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -42,10 +34,9 @@ public class Game extends Applet implements Runnable, KeyListener{
 		p.draw(g);
 		if (b.start) {a.draw(g, b);}
 		b.draw(g);
-		for (Brick br : bricks){
-			br.draw(g, randomColor);
-		}
+		gr.draw(g);
 	}
+	
 	public void update(Graphics g) {
 		paint(g);
 	}
@@ -56,7 +47,7 @@ public class Game extends Applet implements Runnable, KeyListener{
 
 			p.move();
 			b.move(p);
-			System.out.println(b.velocityX + " " + b.velocityY);
+			//System.out.println(b.velocityX + " " + b.velocityY);
 			if (b.start) {a.move(b);}
 			repaint();
 			try {

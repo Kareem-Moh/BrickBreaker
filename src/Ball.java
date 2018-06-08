@@ -24,8 +24,10 @@ public class Ball {
 		if (x <= 0 || x >= Resources.GAME_WIDTH){
 			velocityX = -velocityX;
 		}
-		if (y <= 0 || y >= Resources.GAME_HEIGHT){
+		if (y <= 0){
 			velocityY = -velocityY;
+		} else if (y >= Resources.GAME_HEIGHT){
+			start = true; //Loses a life
 		}
 	}
 	
