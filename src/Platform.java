@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class Platform {
 	
 	boolean movingRight, movingLeft;
-	int x, y, velocity;
+	int x, y, velocity, acc, velocity_cap;
 	int width, height;
 
 	public Platform() {
@@ -16,6 +16,8 @@ public class Platform {
 		x = Resources.GAME_WIDTH/2 - width/2;
 		y = Resources.GAME_HEIGHT - 40;
 		velocity = 0;
+		acc = Resources.PLATFORM_ACCELERATION;
+		velocity_cap = Resources.PLATFORM_VELOCITY_CAP;
 	}
 	
 	public void draw(Graphics g) {
@@ -24,12 +26,12 @@ public class Platform {
 	}
 	
 	public void move() {
-		if (movingLeft == true) {velocity -= 1;}
-		else if (movingRight == true) {velocity += 1;}
+		if (movingLeft == true) {velocity -= acc;}
+		else if (movingRight == true) {velocity += acc;}
 		else if (!movingLeft && !movingRight) {velocity *= Resources.FRICTION;}
 		//Handle paddle moving too fast
-		if (velocity >= 5) {velocity = 5;}
-		else if (velocity <= -5) {velocity = -5;}
+		if (velocity >= velocity_cap) {velocity = velocity_cap;}
+		else if (velocity <= -velocity_cap) {velocity = -velocity_cap;}
 		//Handle wall collision
 		if (x >= Resources.GAME_WIDTH - width) {
 			if (movingLeft) {x += velocity;}

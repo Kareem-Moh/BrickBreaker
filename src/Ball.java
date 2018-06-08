@@ -17,11 +17,24 @@ public class Ball {
 		if (start) {
 			x = p.x + p.width/2 - diameter/2;
 			y = p.y - p.height;
+		} else {
+			x += velocityX;
+			y += velocityY;
+		}
+		if (x <= 0 || x >= Resources.GAME_WIDTH){
+			velocityX = -velocityX;
+		}
+		if (y <= 0 || y >= Resources.GAME_HEIGHT){
+			velocityY = -velocityY;
 		}
 	}
-	public void launch() {
-		
+	
+	public void launch(AimBot a) {
+		start = false;
+		velocityX = (a.x2 + (a.x2 - x))/100;
+		velocityY = - (y - a.y2)/100;
 	}
+	
 	public void draw(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillArc(x, y, 15, 15, 0, 360);
