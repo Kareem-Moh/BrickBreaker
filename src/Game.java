@@ -51,7 +51,7 @@ public class Game extends Applet implements Runnable, KeyListener{
 			if (b.start) {a.move(b);}
 			repaint();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(25);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

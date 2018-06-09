@@ -31,8 +31,9 @@ public class Ball {
 		}
 		//Platform collision
 		if (y == (p.y - p.height)){
-			if (x > p.x && x < (p.x + p.width)){
+			if ((x + diameter/2) > p.x && (x + diameter/2) < (p.x + p.width)){
 				velocityY = -velocityY;
+				velocityX = (x - (p.x + (p.width/2)))/10;
 			}
 		}
 	}

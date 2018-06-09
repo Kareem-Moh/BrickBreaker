@@ -41,8 +41,6 @@ public class Grid {
 			if((currX += (Resources.BRICK1_WIDTH+1)) >= Resources.GAME_WIDTH){
 				currY += Resources.BRICK1_HEIGHT + 1;
 				currX = 10;
-			} else {
-				currX += Resources.BRICK1_WIDTH + 1;
 			}
 		}
 		return grid;
