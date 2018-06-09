@@ -29,8 +29,13 @@ public class Ball {
 		} else if (y >= Resources.GAME_HEIGHT){
 			start = true; //Loses a life
 		}
+		//Platform collision
+		if (y == (p.y - p.height)){
+			if (x > p.x && x < (p.x + p.width)){
+				velocityY = -velocityY;
+			}
+		}
 	}
-	
 	public void launch(AimBot a) {
 		start = false;
 		velocityX = (a.x2 + (a.x2 - x))/100;
